@@ -2,7 +2,7 @@
   "name": "Backstock Manager",
   "short_name": "Backstock Manager",
   "display": "standalone",
-  "start_url": "/",
+  "start_url": "/backstock-manager",
   "icons": [
     {
       "src": "icon.png",
