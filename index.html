@@ -117,6 +117,7 @@
 			left: 0;
 			bottom: 0;
 			padding: 0;
+			padding-bottom: 1em;
 			width: 100%;
 			box-shadow: 5px -5px 5px rgba(0, 0, 0, 0.12);
 		}
@@ -143,7 +144,7 @@
 		.add {
 			position: fixed;
 			right: 1em;
-			bottom: 3.5em;
+			bottom: 4.5em;
 			background-color: var(--theme-color);
 			border-radius: 50%;
 			width: 50px;
@@ -393,7 +394,7 @@
 				width: 85%;
 			}
 			.add {
-				bottom: 5em;
+				bottom: 6em;
 			}
 		}
 	</style>
@@ -408,7 +409,7 @@
 	<table id="inventory">
 		<tr>
 			<th>Item</th>
-			<th># In Stock</th>
+			<th>#</th>
 			<th>Size</th>
 			<th>Date</th>
 			<th class="location">Location</th>
@@ -427,7 +428,7 @@
 		<div class="tab" data-tab="Big-Freezer" data-tab-color="#aa00ff">Big Freezer</div>
 		<div class="tab" data-tab="Backup-Pantry" data-tab-color="#ff5722">Backup Pantry</div>
 		<div class="tab" data-tab="Backup-Toiletries" data-tab-color="#04AA6D">Backup Toiletries</div>
-		<div class="tab" data-tab="Flagged" data-tab-color="#f44336">Flagged</div>
+		<div class="tab" data-tab="Flagged" data-tab-color="#f44336">Flagged Items</div>
 	</div>
 
 	<div class="add">
@@ -516,6 +517,13 @@
 				<input id="themeToggle" type="checkbox">
 				<span class="slider round"></span>
 			</label>
+			<label for="instr">Navigating the App</label>
+			<ul style="margin-left: 2em;">
+				<li>Click/tap the plus sign to add items to the inventory</li>
+				<li>Click/tap an item to edit or delete it</li>
+				<li>Click/tap outside the popup box to cencel changes</li>
+				<li>Click/tab and hold to flag an item</li>
+			</ul>
 		</div>
 	</div>
 
@@ -707,7 +715,7 @@
 			    flagged: flagged
 			}).then(function() {
 				//deleteItem(id);
-				document.getElementById('inventory').innerHTML=`<tr><th>Item</th><th># In Stock</th><th>Size</th><th>Date</th><th class="location">Location</th><th class="flag">Flagged</th></tr>`;
+				/*document.getElementById('inventory').innerHTML=`<tr><th>Item</th><th># In Stock</th><th>Size</th><th>Date</th><th class="location">Location</th><th class="flag">Flagged</th></tr>`;*/
 				loadItems();
 				displayTab(activeTab);
 			}).catch(function(error) {
@@ -734,6 +742,7 @@
 		        deleteItem(change.doc.id);
 		      } else {
 		        var item = change.doc.data();
+		        deleteItem(change.doc.id);
 		        displayItem(change.doc.id, item.name, item.inStock, item.size, item.date, item.location, item.flagged);
 		      }
 		    });
@@ -770,13 +779,13 @@
 		  	flagItem(item, !item.classList.contains('flagged'));
 		  }*/
 		  item.onclick = function(e) {
-		  	//editItem(item);
-		  	flagItem(item, !item.classList.contains('flagged'));
+		  	editItem(item);
+		  	//flagItem(item, !item.classList.contains('flagged'));
 		  }
 		  item.setAttribute('data-long-press-delay', 100);
 		  item.addEventListener('long-press', function(e) {
-		  	//flagItem(item, !item.classList.contains('flagged'));
-		  	editItem(item);
+		  	flagItem(item, !item.classList.contains('flagged'));
+		  	//editItem(item);
 		  });
 
 		  document.getElementById('inventory').appendChild(item);
@@ -862,6 +871,20 @@
 		    }
 		  }
 		  activeTab = tab;
+		  switch(activeTab) {
+		  	case 'Small-Freezer':
+		  		document.querySelector('header h1').innerHTML="Small Freezer";
+		  		break;
+		  	case 'Big-Freezer':
+		  		document.querySelector('header h1').innerHTML="Big Freezer";
+		  		break;
+		  	case 'Backup-Pantry':
+		  		document.querySelector('header h1').innerHTML="Backup Pantry";
+		  		break;
+		  	case 'Backup-Toiletries':
+		  		document.querySelector('header h1').innerHTML="Backup Toiletries";
+		  		break;
+		  }
 		}
 
 		function displayFlagged(val) {
@@ -883,6 +906,7 @@
 		    }
 		  }
 		  activeTab = "Flagged";
+		  document.querySelector('header h1').innerHTML="Flagged Items";
 		}
 
 		/**************************
