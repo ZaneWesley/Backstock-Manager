@@ -745,7 +745,7 @@
 		// Loads chat messages history and listens for upcoming ones.
 		function loadItems() {
 		  // Create the query to load items and listen for new ones.
-		  var query = firebase.firestore().collection('items').orderBy('name', 'desc');
+		  var query = firebase.firestore().collection('items').orderBy('name', 'asc');
 		  
 		  // Start listening to the query.
 		  query.onSnapshot(function(snapshot) {
