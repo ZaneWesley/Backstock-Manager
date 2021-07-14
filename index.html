@@ -53,7 +53,6 @@
 		header h1 {
 			cursor: text;
 		}
-
 		table {
 			border-collapse: collapse;
 		    border-spacing: 0;
@@ -120,6 +119,7 @@
 			padding-bottom: 1em;
 			width: 100%;
 			box-shadow: 5px -5px 5px rgba(0, 0, 0, 0.12);
+			background-color: var(--device-theme);
 		}
 		.tab {
 			float: left;
@@ -422,6 +422,7 @@
 			<td>Sample Date</td>
 		</tr>-->
 	</table>
+	<div style="padding: 3em;">&nbsp;</div>
 
 	<div id="tabs">
 		<div class="tab active" data-tab="Small-Freezer" data-tab-color="#2196F3">Small Freezer</div>
@@ -778,7 +779,7 @@
 		  item.querySelector('.name').innerHTML=name;
 		  item.querySelector('.inStock').innerHTML=inStock;
 		  item.querySelector('.size').innerHTML=size;
-		  item.querySelector('.date').innerHTML=date;
+		  item.querySelector('.date').innerHTML=formattedDate(date);
 		  item.querySelector('.location').innerHTML=location;
 		  item.querySelector('.flag').innerHTML=flagged;
 
@@ -803,6 +804,12 @@
 		  document.getElementById('inventory').appendChild(item);
 		  displayTab(activeTab);
 
+		}
+
+		function formattedDate(date) {
+			var dateString = date.split('-');
+			var newDate = dateString[1] + '/' + dateString[2] + '/' + dateString[0];
+			return newDate;
 		}
 
 		function editItem(itemElem) {
