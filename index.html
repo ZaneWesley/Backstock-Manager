@@ -808,8 +808,22 @@
 
 		function formattedDate(date) {
 			var dateString = date.split('-');
-			var newDate = dateString[1] + '/' + dateString[2] + '/' + dateString[0];
+			if(dateString.length == 3) {
+				var newDate = dateString[1] + '/' + dateString[2] + '/' + dateString[0];
 			return newDate;
+			} else {
+				return date;
+			}
+		}
+
+		function unformattedDate(date) {
+			var dateString = date.split('/');
+			if(dateString.length == 3) {
+				var newDate = dateString[2] + '-' + dateString[1] + '-' + dateString[0];
+			return newDate;
+			} else {
+				return date;
+			}
 		}
 
 		function editItem(itemElem) {
@@ -825,7 +839,7 @@
 			document.getElementById('edit-name').value = item.name;
 			document.getElementById('edit-inStock').value = item.inStock;
 			document.getElementById('edit-size').value = item.size;
-			document.getElementById('edit-date').value = item.date;
+			document.getElementById('edit-date').value = unformattedDate(item.date);
 			document.getElementById('edit-id').value = itemElem.id;
 			document.getElementById('edit-location').value = item.location;
 			document.getElementById('edit-flag').checked = item.flagged == 'true' ? true : false;
