@@ -409,6 +409,19 @@
 		.dp:before {
 			background: var(--theme-color);
 		}
+		.dp-selected:hover, .dp-selected:focus, .dp-selected {
+			background: var(--theme-color);
+		}
+		.dp-day:hover, .dp-month:hover, .dp-year:hover, .dp-current:focus, .dp-current, .dp-day:focus, .dp-month:focus, .dp-year:focus {
+			background: var(--theme-color);
+		}
+		.dp-close:hover, .dp-clear:hover, .dp-today:hover {
+			background: var(--theme-color);
+		}
+		.dp-day-today:after {
+			border-top: 7px solid var(--theme-color);
+			border-right: 7px solid var(--theme-color);
+		}
 		@media (max-width: 480px) {
 			.dp-modal .dp {
 				width: 85%;
