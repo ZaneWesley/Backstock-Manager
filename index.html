@@ -16,6 +16,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.4.1/tinycolor.min.js"></script>
+	<!-- https://github.com/chrisdavies/tiny-date-picker -->
+	<link rel="stylesheet" href="tiny-date-picker.css">
+	<script src="tiny-date-picker.js"></script>
 	<title>Backstock Manager</title>
 
 	<style>
@@ -397,6 +400,20 @@
 				bottom: 6em;
 			}
 		}
+		/*
+			Tiny Date Picker Style Fixes
+		*/
+		.dp-modal {
+			z-index: 2;
+		}
+		.dp:before {
+			background: var(--theme-color);
+		}
+		@media (max-width: 480px) {
+			.dp-modal .dp {
+				width: 85%;
+			}
+		}
 	</style>
 </head>
 <body>
@@ -447,7 +464,7 @@
 			<label for="size">Size</label>
 			<input id="size" type="text" autocomplete="off">
 			<label for="date">Date</label>
-			<input id="date" type="date" autocomplete="off">
+			<input id="date" type="text" autocomplete="off">
 			<label for="location">Location</label>
 			<select id="location">
 				<option value="Small-Freezer">Small Freezer</option>
@@ -471,7 +488,7 @@
 			<label for="edit-size">Size</label>
 			<input id="edit-size" type="text" autocomplete="off">
 			<label for="edit-date">Date</label>
-			<input id="edit-date" type="date" autocomplete="off">
+			<input id="edit-date" type="text" autocomplete="off">
 			<label for="edit-location">Location</label>
 			<select id="edit-location">
 				<option value="Small-Freezer">Small Freezer</option>
@@ -668,6 +685,9 @@
 			}
 		});
 
+		TinyDatePicker('#edit-date');
+		TinyDatePicker('#date');
+
 		document.getElementById('deleteItem').addEventListener('click', function(e) {
 				//removeItem(document.getElementById('edit-id').value);
 				/*document.querySelectorAll('input[type=text]').forEach(function(elem) {
@@ -839,7 +859,7 @@
 			document.getElementById('edit-name').value = item.name;
 			document.getElementById('edit-inStock').value = item.inStock;
 			document.getElementById('edit-size').value = item.size;
-			document.getElementById('edit-date').value = unformattedDate(item.date);
+			document.getElementById('edit-date').value = item.date;
 			document.getElementById('edit-id').value = itemElem.id;
 			document.getElementById('edit-location').value = item.location;
 			document.getElementById('edit-flag').checked = item.flagged == 'true' ? true : false;
